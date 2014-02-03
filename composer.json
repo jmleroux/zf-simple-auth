@@ -1,0 +1,15 @@
+{
+    "name": "jmleroux/zf-simple-auth",
+    "description": "Minimalistic authentication module",
+    "type": "library",
+    "autoload": {
+        "psr-0": {
+            "ZfSimpleAuth\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "~2.2",
+        "phpunit/phpunit": "~3.7"
+    }
+}

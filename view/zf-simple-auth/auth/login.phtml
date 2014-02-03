@@ -1,0 +1,14 @@
+<?php if ($this->identity()): ?>
+    <p>You are already logged</p>
+    <p>Your identity <?php \Zend\Debug\Debug::dump($this->identity()); ?></p>
+<?php else: ?>
+    <form method="post" role="form" class="form-inline">
+        <div class="form-group">
+            <input name="username" class="form-control" placeholder="Username"/>
+        </div>
+        <div class="form-group">
+            <input name="pwd" class="form-control" placeholder="Password"/>
+        </div>
+        <button type="submit" class="btn btn-default"/>Submit</button>
+    </form>
+<?php endif ?>
