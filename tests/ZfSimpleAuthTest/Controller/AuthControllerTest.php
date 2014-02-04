@@ -3,13 +3,14 @@
 namespace ZfSimpleAuthTest\Controller;
 
 use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
+use ZfSimpleAuthTests\Bootstrap;
 
 class AuthControllerTest extends AbstractHttpControllerTestCase
 {
     public function setUp()
     {
         $this->setApplicationConfig(
-            include 'config/application.config.php'
+            Bootstrap::getConfig()
         );
         parent::setUp();
     }

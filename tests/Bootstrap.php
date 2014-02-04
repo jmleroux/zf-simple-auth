@@ -15,29 +15,16 @@ chdir(__DIR__);
  */
 class Bootstrap
 {
+    protected static $rootPath;
     protected static $serviceManager;
 
     public static function init()
     {
-        $zf2ModulePaths = array(dirname(dirname(__DIR__)));
-        if (($path = static::findParentPath('vendor'))) {
-            $zf2ModulePaths[] = $path;
-        }
-        if (($path = static::findParentPath('module')) !== $zf2ModulePaths[0]) {
-            $zf2ModulePaths[] = $path;
-        }
+        chdir(dirname(__DIR__));
+
+        $config = self::getConfig();
 
         static::initAutoloader();
-
-        // use ModuleManager to load this module and it's dependencies
-        $config = array(
-            'module_listener_options' => array(
-                'module_paths' => $zf2ModulePaths,
-            ),
-            'modules' => array(
-                'ZfSimpleAuth'
-            )
-        );
 
         $serviceManager = new ServiceManager(new ServiceManagerConfig());
         $serviceManager->setService('ApplicationConfig', $config);
@@ -45,15 +32,40 @@ class Bootstrap
         static::$serviceManager = $serviceManager;
     }
 
-    public static function chroot()
+    public static function getConfig()
     {
-        $rootPath = dirname(static::findParentPath('module'));
-        chdir($rootPath);
+        if (($path = static::findParentPath('vendor'))) {
+            $zf2ModulePaths[] = $path;
+        }
+
+        // use ModuleManager to load this module and it's dependencies
+        $config = array(
+            'module_listener_options' => array(
+                'module_paths' => $zf2ModulePaths,
+                'config_glob_paths' => array(
+                    __DIR__ . '/module.config.php',
+                ),
+            ),
+            'modules' => array(
+                'ZfSimpleAuth'
+            ),
+        );
+
+        return $config;
     }
 
-    public static function getServiceManager()
+    protected static function findParentPath($path)
     {
-        return static::$serviceManager;
+        $dir = __DIR__;
+        $previousDir = '.';
+        while (!is_dir($dir . '/' . $path)) {
+            $dir = dirname($dir);
+            if ($previousDir === $dir) {
+                return false;
+            }
+            $previousDir = $dir;
+        }
+        return $dir . '/' . $path;
     }
 
     protected static function initAutoloader()
@@ -84,20 +96,10 @@ class Bootstrap
         ));
     }
 
-    protected static function findParentPath($path)
+    public static function getServiceManager()
     {
-        $dir = __DIR__;
-        $previousDir = '.';
-        while (!is_dir($dir . '/' . $path)) {
-            $dir = dirname($dir);
-            if ($previousDir === $dir) {
-                return false;
-            }
-            $previousDir = $dir;
-        }
-        return $dir . '/' . $path;
+        return static::$serviceManager;
     }
 }
 
 Bootstrap::init();
-Bootstrap::chroot();

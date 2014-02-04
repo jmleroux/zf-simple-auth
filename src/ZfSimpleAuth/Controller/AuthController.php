@@ -9,7 +9,6 @@
 
 namespace ZfSimpleAuth\Controller;
 
-use ZfSimpleAuth\Authentication\PhpArrayAdapter;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container;
 use Zend\View\Model\ViewModel;
@@ -53,13 +52,13 @@ class AuthController extends AbstractActionController
             $this->flashMessenger()->addErrorMessage('Invalid informations');
         }
 
-        $this->redirect()->toRoute('login');
+        return $this->redirect()->toRoute('login');
     }
 
     public function logoutAction()
     {
         $auth = new AuthenticationService();
         $auth->clearIdentity();
-        $this->redirect()->toRoute('login');
+        return $this->redirect()->toRoute('login');
     }
 }
