@@ -7,7 +7,7 @@ I use this module when i need to test my developments in authenticated mode with
 
 Not for use in production, but useful in dev.
 
-It provides a form to log in and out.
+It provides a form to log in and out with a basic ZendSkeletonApplication.
 Initially used for testing ZfcRbac, the identity is provided with simples roles.
 
 Installation
