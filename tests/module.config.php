@@ -24,4 +24,21 @@ return array(
 
         ),
     ),
+    'zf-simple-auth' => array(
+        'users' => array(
+            'demo-admin' => array(
+                'password' => 'foobar',
+                'roles' => array(
+                    'admin',
+                    'member',
+                )
+            ),
+            'demo-member' => array(
+                'password' => 'foobaz',
+                'roles' => array(
+                    'member',
+                )
+            ),
+        ),
+    ),
 );
