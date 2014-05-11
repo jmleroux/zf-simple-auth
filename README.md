@@ -19,3 +19,5 @@ Installation
 
 * Add dependency in your composer.json
 * Add 'ZfSimpleAuth' in application.config.php
+* Copy zf-simple-auth.local.php.dist to your config/autoload/zf-simple-auth.local.php
+* Configure users in config/autoload/zf-simple-auth.local.php
